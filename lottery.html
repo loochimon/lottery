@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Lottery </title>
+        <style>
+            .display {
+                padding-top: 20px;
+                padding-left: 20px;
+                font-family: avenir;
+            }
+
+            h1{
+                padding-top: 30px;
+                padding-left: 20px;
+                font-family: avenir;
+            }
+        </style>
+        
+    </head>
+    <body style="background-color: #DECFF1">
+        <h1> LOTTERY SIMULATOR </h1>
+        <div class="display">
+            <div>
+                The 5 numbers you picked are: [
+                <strong id="generate"></strong>
+                ] and the lucky ball number you picked is 
+                <strong id="luckygenerate"></strong>
+            </div>
+            <div>
+                The 5 winning numbers are: [
+                <strong id="manualnum"></strong>
+                ] and the lucky ball number is 
+                <strong id="luckynum"></strong>
+            </div>
+            <div>
+                Number of matched numbers: 
+                <strong id="matchnum"></strong>
+            </div>
+            <div>
+                Your pick of the lucky ball number 
+                <strong id="match"></strong> 
+                the lucky ball.
+            </div>
+            <div>
+                Your payout is: <strong id="result"></strong>
+            </div>
+        </div>
+        
+        <script language = "javascript"> 
+            // user enter 5 numbers and 1 lucky number
+                var numbers = prompt("Please enter 5 numbers","");
+                var luckynumber = prompt("Please enter the lucky ball number","");
+        
+            // store numbers in an array
+                const manual = numbers.split(" ");
+            
+            // sort the numbers from smallest to biggest
+                manual.sort(function(a, b){return a - b});
+         
+                document.getElementById("manualnum").innerHTML = manual;
+                document.getElementById("luckynum").innerHTML = luckynumber;
+
+
+
+            var min = 1;
+            var max = 48;
+            const generated = [];
+
+            for (let i = 0; i < 5; i++) {
+                let a =  Math.floor(Math.random() * (max-min)+min); 
+                if (generated.includes(a)){
+                    a = Math.floor(Math.random() * (max-min)+min); 
+                }
+                generated[i] = a;
+            }
+
+            generated.sort(function(a, b){return a - b});
+
+            // auto-generate 1 lucky number
+            var luckygenerated = Math.floor(Math.random() * (18 - 1) + 1); 
+
+                document.getElementById("generate").innerHTML = generated;
+                document.getElementById("luckygenerate").innerHTML = luckygenerated;
+
+
+                 var count = 0;
+        
+                    for (let i = 0; i < 5; i++){
+                        for (let j = 0; j < 5; j++){
+                            if (manual[i] == generated[j]){
+                                count++;
+                            } 
+                        }  
+                    }
+
+
+            document.getElementById("match").innerHTML 
+            = (luckynumber == luckygenerated) ? " matches " : " does not match " ;
+
+            document.getElementById("matchnum").innerHTML = count;
+
+
+        let outcome;
+
+        if ((count == 5) && (luckynumber == luckygenerated)){
+            outcome = "Prize: $7000 a WEEK for LIFE";
+            document.getElementById("result").innerHTML = outcome;
+        } else if(count == 5){
+            outcome = "$25,000 a YEAR for LIFE";
+            document.getElementById("result").innerHTML = outcome;
+        } else if((count == 4) && (luckynumber == luckygenerated)){
+            outcome = "Prize: $5000";
+            document.getElementById("result").innerHTML = outcome;
+        } else if (count == 4){
+            outcome = "Prize: 200";
+            document.getElementById("result").innerHTML = outcome;
+        } else if ((count == 3) && (luckynumber == luckygenerated)){
+            outcome = "Prize: $150";
+            document.getElementById("result").innerHTML = outcome;
+        } else if (count == 3){
+            outcome = "Prize: $20";
+            document.getElementById("result").innerHTML = outcome;
+        } else if ((count == 2) && (luckynumber == luckygenerated)){
+            outcome = "Prize: $25";
+            document.getElementById("result").innerHTML = outcome;
+        } else if (count == 2){
+            outcome = "Prize: $3";
+            document.getElementById("result").innerHTML = outcome;
+        } else if ((count == 1) && (luckynumber == luckygenerated)){
+            outcome = "Prize: $6";
+            document.getElementById("result").innerHTML = outcome;
+        } else if ((count == 0) && (luckynumber == luckygenerated)){
+            outcome = "Prize: $4";
+            document.getElementById("result").innerHTML = outcome;
+        } else{
+            outcome = "Prize: $0";
+            document.getElementById("result").innerHTML = outcome;
+        }
+         </script> 
+
+    </body>
+</html>
